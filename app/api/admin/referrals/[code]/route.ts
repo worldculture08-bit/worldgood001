@@ -22,7 +22,7 @@ export async function PATCH(req: Request, { params }: Props) {
     return NextResponse.json({ error: "잘못된 요청입니다." }, { status: 400 });
   }
 
-  const store = readStore();
+  const store = await readStore();
   const entry = store.referralCodes.find((c) => c.code === codeKey);
   if (!entry) {
     return NextResponse.json(
@@ -34,7 +34,12 @@ export async function PATCH(req: Request, { params }: Props) {
   if (typeof body.active === "boolean") {
     entry.active = body.active;
   }
-  writeStore(store);
+  if (!(await writeStore(store))) {
+    return NextResponse.json(
+      { error: "추천 코드 저장소가 연결되지 않았습니다." },
+      { status: 503 },
+    );
+  }
 
   return NextResponse.json({ ok: true, code: entry });
 }

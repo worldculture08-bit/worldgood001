@@ -1,3 +1,4 @@
+import Link from "next/link";
 import PostCard from "@/components/PostCard";
 import AdSlot from "@/components/AdSlot";
 import { getAllPosts } from "@/lib/posts";
@@ -16,7 +17,20 @@ export default function HomePage() {
         <p className="mt-3 text-base leading-relaxed text-ink-700 sm:text-lg">
           {siteConfig.tagline}
         </p>
+        <div className="mt-6 flex flex-wrap items-center gap-3 text-sm">
+          <Link
+            href="/about"
+            className="rounded-md bg-accent px-4 py-2 font-semibold text-white hover:bg-accent/90"
+          >
+            이 공간 소개
+          </Link>
+          <span className="text-ink-700/70">현재 {posts.length}편의 기록</span>
+        </div>
       </section>
+
+      <div className="mb-10">
+        <AdSlot slot="banner" />
+      </div>
 
       <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_280px]">
         <div className="space-y-5">
@@ -46,12 +60,12 @@ export default function HomePage() {
               현장형 기획자 {siteConfig.author}이 사람과 일을 잇고, 경험을 글로
               남기는 공간입니다.
             </p>
-            <a
+            <Link
               href="/about"
               className="mt-3 inline-block text-sm font-medium text-accent hover:underline"
             >
               소개 더 보기 →
-            </a>
+            </Link>
           </div>
           <AdSlot slot="sidebar" />
         </aside>

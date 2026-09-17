@@ -34,6 +34,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       publishedTime: post.date,
       url: `${siteConfig.url}/p/${post.slug}`,
     },
+    alternates: { canonical: `/p/${post.slug}` },
   };
 }
 

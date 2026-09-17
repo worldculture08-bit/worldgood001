@@ -17,7 +17,7 @@ export async function POST(req: Request) {
   const username = (body.username || "").trim();
   const password = body.password || "";
 
-  const user = findUserByUsername(username);
+  const user = await findUserByUsername(username);
   if (!user || user.role !== "admin") {
     return NextResponse.json(
       { error: "관리자 인증에 실패했습니다." },
@@ -33,7 +33,13 @@ export async function POST(req: Request) {
     );
   }
 
-  await setSessionCookie(user);
+  if (!(await setSessionCookie(user))) {
+    return NextResponse.json(
+      { error: "서버 로그인 설정이 완료되지 않았습니다." },
+      { status: 503 },
+    );
+  }
+
   return NextResponse.json({
     ok: true,
     user: { username: user.username, role: user.role },

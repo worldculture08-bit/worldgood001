@@ -9,7 +9,7 @@ export async function GET() {
   if (!admin) {
     return NextResponse.json({ error: "권한이 없습니다." }, { status: 403 });
   }
-  const store = readStore();
+  const store = await readStore();
   return NextResponse.json({ codes: store.referralCodes });
 }
 
@@ -44,7 +44,7 @@ export async function POST(req: Request) {
     );
   }
 
-  const store = readStore();
+  const store = await readStore();
   if (store.referralCodes.some((c) => c.code === code)) {
     return NextResponse.json(
       { error: "이미 존재하는 코드입니다." },
@@ -60,7 +60,12 @@ export async function POST(req: Request) {
     active: true,
   };
   store.referralCodes.unshift(entry);
-  writeStore(store);
+  if (!(await writeStore(store))) {
+    return NextResponse.json(
+      { error: "추천 코드 저장소가 연결되지 않았습니다." },
+      { status: 503 },
+    );
+  }
 
   return NextResponse.json({ ok: true, code: entry });
 }

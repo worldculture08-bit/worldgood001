@@ -14,13 +14,19 @@ export type SessionPayload = {
   exp: number;
 };
 
-function getSecret(): string {
-  const s = process.env.SESSION_SECRET;
-  if (!s || s.length < 16) {
-    // Dev fallback — production must set SESSION_SECRET
-    return "dev-only-session-secret-change-me";
+function getSecret(): string | null {
+  const secret = process.env.SESSION_SECRET?.trim();
+  if (secret && secret.length >= 32) return secret;
+  if (process.env.NODE_ENV === "production") return null;
+  return "dev-only-session-secret-change-me-32-chars";
+}
+
+function requireSecret(): string {
+  const secret = getSecret();
+  if (!secret) {
+    throw new Error("SESSION_SECRET must be configured in production");
   }
-  return s;
+  return secret;
 }
 
 function b64url(input: Buffer | string): string {
@@ -44,7 +50,7 @@ export function signSession(payload: Omit<SessionPayload, "exp">): string {
     exp: Math.floor(Date.now() / 1000) + MAX_AGE_SEC,
   };
   const body = b64url(JSON.stringify(full));
-  const sig = createHmac("sha256", getSecret()).update(body).digest();
+  const sig = createHmac("sha256", requireSecret()).update(body).digest();
   return `${body}.${b64url(sig)}`;
 }
 
@@ -52,7 +58,9 @@ export function verifySession(token: string): SessionPayload | null {
   const parts = token.split(".");
   if (parts.length !== 2) return null;
   const [body, sig] = parts;
-  const expected = createHmac("sha256", getSecret()).update(body).digest();
+  const secret = getSecret();
+  if (!secret) return null;
+  const expected = createHmac("sha256", secret).update(body).digest();
   let given: Buffer;
   try {
     given = fromB64url(sig);
@@ -85,20 +93,25 @@ export async function verifyPassword(
   return bcrypt.compare(password, hash);
 }
 
-export async function setSessionCookie(user: User): Promise<void> {
-  const token = signSession({
-    sub: user.id,
-    username: user.username,
-    role: user.role,
-  });
-  const jar = await cookies();
-  jar.set(COOKIE_NAME, token, {
-    httpOnly: true,
-    sameSite: "lax",
-    secure: process.env.NODE_ENV === "production",
-    path: "/",
-    maxAge: MAX_AGE_SEC,
-  });
+export async function setSessionCookie(user: User): Promise<boolean> {
+  try {
+    const token = signSession({
+      sub: user.id,
+      username: user.username,
+      role: user.role,
+    });
+    const jar = await cookies();
+    jar.set(COOKIE_NAME, token, {
+      httpOnly: true,
+      sameSite: "lax",
+      secure: process.env.NODE_ENV === "production",
+      path: "/",
+      maxAge: MAX_AGE_SEC,
+    });
+    return true;
+  } catch {
+    return false;
+  }
 }
 
 export async function clearSessionCookie(): Promise<void> {
@@ -119,7 +132,7 @@ export async function getSession(): Promise<SessionPayload | null> {
   const session = verifySession(token);
   if (!session) return null;
   // Ensure user still exists/active
-  const user = findUserByUsername(session.username);
+  const user = await findUserByUsername(session.username);
   if (!user || user.role !== session.role) return null;
   return session;
 }

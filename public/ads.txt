@@ -1,9 +1,1 @@
-# Google AdSense ads.txt 템플릿
-# --------------------------------------------------
-# AdSense 승인 후, 아래 형식으로 본인의 publisher ID를 넣어
-# 이 파일을 수정하세요. (예시 ID는 사용하지 마세요)
-#
-# google.com, pub-xxxxxxxxxxxxxxxx, DIRECT, f08c47fec0942fa0
-#
-# 배포 후 https://당신의-도메인/ads.txt 로 접근 가능해야 합니다.
-# 자세한 내용: https://support.google.com/adsense/answer/7532444
+google.com, pub-2581557677165239, DIRECT, f08c47fec0942fa0

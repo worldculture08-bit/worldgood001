@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { siteConfig } from "@/lib/site";
 
 export default function Footer() {
@@ -8,9 +9,12 @@ export default function Footer() {
         <p>
           © {year} {siteConfig.name} · {siteConfig.author}
         </p>
-        <p className="text-ink-700/70">
-          현장과 사람을 잇는 기록 · {siteConfig.nameEn}
-        </p>
+        <nav className="flex flex-wrap gap-x-4 gap-y-1 text-ink-700/70" aria-label="사이트 안내">
+          <Link href="/about" className="hover:text-accent">소개</Link>
+          <Link href="/contact" className="hover:text-accent">문의</Link>
+          <Link href="/privacy" className="hover:text-accent">개인정보처리방침</Link>
+          <Link href="/terms" className="hover:text-accent">이용약관</Link>
+        </nav>
       </div>
     </footer>
   );

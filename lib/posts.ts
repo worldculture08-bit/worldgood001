@@ -5,6 +5,7 @@ import { remark } from "remark";
 import html from "remark-html";
 
 const postsDirectory = path.join(process.cwd(), "content/posts");
+const postSlugPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
 export type PostMeta = {
   slug: string;
@@ -26,7 +27,9 @@ function ensurePostsDir() {
 }
 
 export function getAllPostSlugs(): string[] {
-  return ensurePostsDir().map((file) => file.replace(/\.md$/, ""));
+  return ensurePostsDir()
+    .map((file) => file.replace(/\.md$/, ""))
+    .filter((slug) => postSlugPattern.test(slug));
 }
 
 export function getAllPosts(): PostMeta[] {
@@ -50,6 +53,7 @@ export function getAllPosts(): PostMeta[] {
 }
 
 export async function getPostBySlug(slug: string): Promise<Post | null> {
+  if (!postSlugPattern.test(slug)) return null;
   const fullPath = path.join(postsDirectory, `${slug}.md`);
   if (!fs.existsSync(fullPath)) {
     return null;

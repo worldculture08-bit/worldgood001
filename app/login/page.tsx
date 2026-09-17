@@ -3,7 +3,8 @@ import LoginForm from "@/components/LoginForm";
 
 export const metadata: Metadata = {
   title: "로그인",
-  description: "현장기록 회원 로그인",
+  description: "하루기록 회원 로그인",
+  robots: { index: false, follow: true },
 };
 
 export default function LoginPage() {

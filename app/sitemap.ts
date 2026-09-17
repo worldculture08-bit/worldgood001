@@ -27,16 +27,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.5,
     },
     {
-      url: `${base}/join`,
+      url: `${base}/privacy`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.4,
     },
     {
-      url: `${base}/login`,
+      url: `${base}/terms`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.3,
+    },
+    {
+      url: `${base}/contact`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.4,
     },
     ...postEntries,
   ];

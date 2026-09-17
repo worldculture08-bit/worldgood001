@@ -13,6 +13,9 @@ export const metadata: Metadata = {
   },
   description: siteConfig.description,
   authors: [{ name: siteConfig.author }],
+  other: process.env.NEXT_PUBLIC_ADSENSE_CLIENT
+    ? { "google-adsense-account": process.env.NEXT_PUBLIC_ADSENSE_CLIENT }
+    : {},
   openGraph: {
     type: "website",
     locale: "ko_KR",
