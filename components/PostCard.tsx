@@ -3,7 +3,26 @@ import { formatDateKo, type PostMeta } from "@/lib/posts";
 
 export default function PostCard({ post }: { post: PostMeta }) {
   return (
-    <article className="group relative rounded-xl border border-ink-200 bg-white p-5 shadow-sm transition hover:border-accent/40 hover:shadow-md sm:p-6">
+    <article className="group relative flex gap-4 rounded-xl border border-ink-200 bg-white p-5 shadow-sm transition hover:border-accent/40 hover:shadow-md sm:gap-5 sm:p-6">
+      {post.image ? (
+        <Link
+          href={`/p/${post.slug}`}
+          className="relative z-10 hidden shrink-0 overflow-hidden rounded-lg border border-ink-100 sm:block"
+          tabIndex={-1}
+          aria-hidden
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={post.image}
+            alt=""
+            width={128}
+            height={128}
+            loading="lazy"
+            className="h-28 w-32 object-cover transition duration-300 group-hover:scale-[1.03]"
+          />
+        </Link>
+      ) : null}
+      <div className="min-w-0 flex-1">
       <time
         dateTime={post.date}
         className="text-xs font-medium uppercase tracking-wide text-ink-700/60"
@@ -33,6 +52,7 @@ export default function PostCard({ post }: { post: PostMeta }) {
           ))}
         </ul>
       ) : null}
+      </div>
     </article>
   );
 }

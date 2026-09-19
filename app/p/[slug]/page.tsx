@@ -33,6 +33,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       type: "article",
       publishedTime: post.date,
       url: `${siteConfig.url}/p/${post.slug}`,
+      images: [{ url: post.image, width: 1200, height: 630, alt: post.title }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.description,
+      images: [post.image],
     },
     alternates: { canonical: `/p/${post.slug}` },
   };
@@ -78,6 +85,19 @@ export default async function PostPage({ params }: Props) {
             </ul>
           ) : null}
         </header>
+
+        {post.image ? (
+          <figure className="mt-8">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={post.image}
+              alt={`${post.title} 대표 이미지`}
+              width={1200}
+              height={630}
+              className="w-full rounded-xl border border-ink-100 object-cover"
+            />
+          </figure>
+        ) : null}
 
         <div
           className="prose-ko mt-8"

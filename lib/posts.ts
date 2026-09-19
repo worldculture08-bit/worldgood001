@@ -13,7 +13,21 @@ export type PostMeta = {
   date: string;
   description: string;
   tags: string[];
+  image: string;
 };
+
+const coverSlugPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+
+// 커버 이미지 결정: frontmatter image → cover-<slug>.png → (글 본문 첫 img) → og-default
+export function resolveCover(slug: string, data?: { image?: unknown }): string {
+  const explicit = data && typeof data.image === "string" && data.image.trim();
+  if (explicit) return explicit as string;
+  if (coverSlugPattern.test(slug)) {
+    const coverPath = path.join(process.cwd(), "public", "images", `cover-${slug}.png`);
+    if (fs.existsSync(coverPath)) return `/images/cover-${slug}.png`;
+  }
+  return "/images/og-default.png";
+}
 
 export type Post = PostMeta & {
   contentHtml: string;
@@ -46,6 +60,7 @@ export function getAllPosts(): PostMeta[] {
       date: (data.date as string) || "",
       description: (data.description as string) || "",
       tags: Array.isArray(data.tags) ? (data.tags as string[]) : [],
+      image: resolveCover(slug, data),
     };
   });
 
@@ -70,6 +85,7 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
     date: (data.date as string) || "",
     description: (data.description as string) || "",
     tags: Array.isArray(data.tags) ? (data.tags as string[]) : [],
+    image: resolveCover(slug, data),
     contentHtml,
   };
 }
