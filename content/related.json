@@ -1,0 +1,369 @@
+{
+"adsense-ready-writing": [
+"short-posts-win",
+"writing-for-workers",
+"ai-output-verification"
+],
+"ai-assistant-comparison-ko": [
+"ai-tool-selection-scorecard",
+"ai-in-practice",
+"document-summary-ai-compare"
+],
+"ai-in-practice": [
+"ai-prompt-logbook",
+"ai-prompt-field",
+"ai-meeting-notes-workflow"
+],
+"ai-meeting-notes-workflow": [
+"ai-output-verification",
+"ai-in-practice",
+"ai-prompt-field"
+],
+"ai-output-verification": [
+"ai-meeting-notes-workflow",
+"ai-in-practice",
+"ai-prompt-logbook"
+],
+"ai-plan-free-vs-paid": [
+"ai-tool-selection-scorecard",
+"ai-subscription-audit",
+"copilot-roi-calculation"
+],
+"ai-plan-overlap-one-person": [
+"ai-subscription-audit",
+"ai-tool-selection-scorecard",
+"copilot-roi-calculation"
+],
+"ai-prompt-field": [
+"ai-meeting-notes-workflow",
+"ai-in-practice",
+"ai-prompt-logbook"
+],
+"ai-prompt-logbook": [
+"ai-in-practice",
+"ai-prompt-field",
+"ai-output-verification"
+],
+"ai-subscription-audit": [
+"ai-plan-overlap-one-person",
+"copilot-roi-calculation",
+"ai-plan-free-vs-paid"
+],
+"ai-takes-jobs": [
+"end-of-labor-basic-income",
+"ai-in-practice",
+"ai-prompt-logbook"
+],
+"ai-tool-selection-scorecard": [
+"ai-plan-free-vs-paid",
+"copilot-roi-calculation",
+"ai-assistant-comparison-ko"
+],
+"ai-work-automation-checklist": [
+"ai-in-practice",
+"ai-meeting-notes-workflow",
+"ai-assistant-comparison-ko"
+],
+"apartment-wealth-myth": [
+"emergency-fund-3-months",
+"good-enough",
+"end-of-labor-basic-income"
+],
+"connect-people": [
+"people-and-work",
+"on-site-trust",
+"small-project-start"
+],
+"construction-winter": [
+"end-of-labor-basic-income",
+"respect-at-work",
+"writing-for-workers"
+],
+"copilot-roi-calculation": [
+"ai-tool-selection-scorecard",
+"ai-subscription-audit",
+"ai-plan-free-vs-paid"
+],
+"daily-review-upgrade": [
+"one-line-log",
+"weekly-review",
+"morning-note"
+],
+"desk-reset": [
+"morning-note",
+"daily-review-upgrade",
+"keep-going"
+],
+"document-summary-ai-compare": [
+"ai-assistant-comparison-ko",
+"ai-in-practice",
+"ai-tool-selection-scorecard"
+],
+"emergency-fund-3-months": [
+"ai-subscription-audit",
+"apartment-wealth-myth",
+"daily-review-upgrade"
+],
+"end-of-labor-basic-income": [
+"ai-takes-jobs",
+"sweden-welfare-korea",
+"respect-at-work"
+],
+"evidence-first": [
+"fact-claim-inference",
+"field-note-habit",
+"weekly-review"
+],
+"fact-claim-inference": [
+"evidence-first",
+"field-note-habit",
+"why-write"
+],
+"field-briefing": [
+"follow-up-keeps-trust",
+"when-plan-changes",
+"one-page-meeting"
+],
+"field-note-habit": [
+"evidence-first",
+"weekly-review",
+"short-posts-win"
+],
+"follow-up-keeps-trust": [
+"on-site-trust",
+"when-plan-changes",
+"field-briefing"
+],
+"good-enough": [
+"start-again-today",
+"one-line-log",
+"slow-progress"
+],
+"industrial-accident-shutdown-pay": [
+"net-pay-four-insurances-2026",
+"severance-pay-one-year",
+"weekly-holiday-allowance"
+],
+"keep-going": [
+"small-habits",
+"morning-note",
+"one-line-log"
+],
+"labor-field-listen": [
+"question-before-solution",
+"on-site-trust",
+"respect-at-work"
+],
+"meeting-after": [
+"one-page-meeting",
+"why-write",
+"rest-for-continuity"
+],
+"meeting-ai-tools-compare": [
+"ai-meeting-notes-workflow",
+"ai-tool-selection-scorecard",
+"ai-plan-free-vs-paid"
+],
+"minimum-wage-2026-monthly": [
+"weekly-holiday-allowance",
+"net-pay-four-insurances-2026",
+"severance-pay-one-year"
+],
+"morning-note": [
+"one-line-log",
+"daily-review-upgrade",
+"start-again-today"
+],
+"net-pay-four-insurances-2026": [
+"minimum-wage-2026-monthly",
+"severance-pay-one-year",
+"unused-annual-leave-pay"
+],
+"note-to-self": [
+"daily-review-upgrade",
+"one-line-log",
+"small-habits"
+],
+"on-site-trust": [
+"follow-up-keeps-trust",
+"when-plan-changes",
+"labor-field-listen"
+],
+"one-line-log": [
+"morning-note",
+"start-again-today",
+"daily-review-upgrade"
+],
+"one-page-meeting": [
+"meeting-after",
+"why-write",
+"ai-prompt-logbook"
+],
+"parental-leave-pay-2026": [
+"net-pay-four-insurances-2026",
+"resignation-type-unemployment",
+"minimum-wage-2026-monthly"
+],
+"people-and-work": [
+"connect-people",
+"respect-at-work",
+"small-project-start"
+],
+"people-before-tools": [
+"ai-work-automation-checklist",
+"question-before-solution",
+"tools-not-magic"
+],
+"privacy-in-ai-work": [
+"ai-output-verification",
+"ai-in-practice",
+"ai-meeting-notes-workflow"
+],
+"public-data-reading": [
+"fact-claim-inference",
+"evidence-first",
+"note-to-self"
+],
+"question-before-solution": [
+"people-before-tools",
+"labor-field-listen",
+"field-briefing"
+],
+"quiet-week": [
+"one-line-log",
+"start-again-today",
+"morning-note"
+],
+"resignation-type-unemployment": [
+"unemployment-benefit-2026",
+"severance-pay-one-year",
+"unused-annual-leave-pay"
+],
+"respect-at-work": [
+"labor-field-listen",
+"writing-for-workers",
+"people-and-work"
+],
+"rest-for-continuity": [
+"keep-going",
+"desk-reset",
+"morning-note"
+],
+"severance-pay-one-year": [
+"unused-annual-leave-pay",
+"industrial-accident-shutdown-pay",
+"weekly-holiday-allowance"
+],
+"short-posts-win": [
+"field-note-habit",
+"weekly-review",
+"evidence-first"
+],
+"slow-progress": [
+"keep-going",
+"quiet-week",
+"morning-note"
+],
+"small-habits": [
+"keep-going",
+"daily-review-upgrade",
+"start-again-today"
+],
+"small-project-start": [
+"ai-work-automation-checklist",
+"field-briefing",
+"people-before-tools"
+],
+"start-again-today": [
+"one-line-log",
+"small-habits",
+"morning-note"
+],
+"sweden-welfare-korea": [
+"end-of-labor-basic-income",
+"respect-at-work",
+"ai-takes-jobs"
+],
+"tools-not-magic": [
+"ai-in-practice",
+"field-note-habit",
+"evidence-first"
+],
+"unemployment-benefit-2026": [
+"resignation-type-unemployment",
+"net-pay-four-insurances-2026",
+"parental-leave-pay-2026"
+],
+"unused-annual-leave-pay": [
+"severance-pay-one-year",
+"weekly-holiday-allowance",
+"net-pay-four-insurances-2026"
+],
+"weekly-holiday-allowance": [
+"minimum-wage-2026-monthly",
+"net-pay-four-insurances-2026",
+"severance-pay-one-year"
+],
+"weekly-review": [
+"small-habits",
+"work-note-template",
+"field-note-habit"
+],
+"when-plan-changes": [
+"follow-up-keeps-trust",
+"field-briefing",
+"on-site-trust"
+],
+"why-write": [
+"field-note-habit",
+"evidence-first",
+"start-again-today"
+],
+"work-note-template": [
+"weekly-review",
+"start-again-today",
+"small-habits"
+],
+"writing-for-workers": [
+"evidence-first",
+"respect-at-work",
+"fact-claim-inference"
+],
+"industrial-accident-claim-checklist": [
+"labor-contract-checklist",
+"severance-pay-checklist"
+],
+"labor-contract-checklist": [
+"severance-pay-checklist",
+"industrial-accident-claim-checklist"
+],
+"severance-pay-checklist": [
+"labor-contract-checklist",
+"industrial-accident-claim-checklist"
+],
+"employment-type-comparison": [
+"year-end-tax-comparison",
+"hybrid-work-cost-calculator",
+"rent-limit-calculator"
+],
+"hybrid-work-cost-calculator": [
+"rent-limit-calculator",
+"year-end-tax-comparison",
+"employment-type-comparison"
+],
+"one-year-money-comparison": [
+"year-end-tax-comparison",
+"rent-limit-calculator",
+"hybrid-work-cost-calculator"
+],
+"rent-limit-calculator": [
+"year-end-tax-comparison",
+"hybrid-work-cost-calculator",
+"one-year-money-comparison"
+],
+"year-end-tax-comparison": [
+"rent-limit-calculator",
+"one-year-money-comparison",
+"hybrid-work-cost-calculator"
+]
+}

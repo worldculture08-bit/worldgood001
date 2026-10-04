@@ -1,0 +1,269 @@
+{
+ "results": {
+  "emergency-fund-3-months": {
+   "model": "jev-1.13.0",
+   "answers": {
+    "category": {
+     "type": "choice",
+     "choice": "money-life",
+     "confidence": 1.0,
+     "probabilities": {
+      "work-life": 0.0,
+      "writing-blog": 0.0,
+      "habit-record": 0.0,
+      "labor-law": 0.0,
+      "money-life": 1.0,
+      "mindset": 0.0,
+      "ai-tools": 0.0,
+      "planning": 0.0,
+      "other": 0.0,
+      "labor-world": 0.0
+     }
+    },
+    "category_secondary": {
+     "type": "choice",
+     "choice": "habit-record",
+     "confidence": 0.47,
+     "probabilities": {
+      "work-life": 0.0,
+      "none": 0.25,
+      "writing-blog": 0.0,
+      "habit-record": 0.53,
+      "labor-law": 0.0,
+      "mindset": 0.02,
+      "money-life": 0.18,
+      "ai-tools": 0.0,
+      "planning": 0.02,
+      "other": 0.0,
+      "labor-world": 0.0
+     }
+    }
+   },
+   "usage": {
+    "input_tokens": 2467,
+    "output_tokens": 201
+   }
+  },
+  "rent-limit-calculator": {
+   "model": "jev-1.13.0",
+   "answers": {
+    "category": {
+     "type": "choice",
+     "choice": "money-life",
+     "confidence": 1.0,
+     "probabilities": {
+      "mindset": 0.0,
+      "work-life": 0.0,
+      "writing-blog": 0.0,
+      "labor-law": 0.0,
+      "ai-tools": 0.0,
+      "planning": 0.0,
+      "labor-world": 0.0,
+      "money-life": 1.0,
+      "habit-record": 0.0,
+      "other": 0.0
+     }
+    },
+    "category_secondary": {
+     "type": "choice",
+     "choice": "money-life",
+     "confidence": 0.44,
+     "probabilities": {
+      "mindset": 0.0,
+      "none": 0.45,
+      "work-life": 0.0,
+      "writing-blog": 0.0,
+      "labor-law": 0.04,
+      "ai-tools": 0.0,
+      "planning": 0.01,
+      "labor-world": 0.0,
+      "money-life": 0.5,
+      "habit-record": 0.0,
+      "other": 0.0
+     }
+    }
+   },
+   "usage": {
+    "input_tokens": 2500,
+    "output_tokens": 201
+   }
+  },
+  "employment-type-comparison": {
+   "model": "jev-1.13.0",
+   "answers": {
+    "category": {
+     "type": "choice",
+     "choice": "labor-law",
+     "confidence": 1.0,
+     "probabilities": {
+      "writing-blog": 0.0,
+      "mindset": 0.0,
+      "ai-tools": 0.0,
+      "work-life": 0.0,
+      "other": 0.0,
+      "planning": 0.0,
+      "labor-world": 0.0,
+      "labor-law": 1.0,
+      "habit-record": 0.0,
+      "money-life": 0.0
+     }
+    },
+    "category_secondary": {
+     "type": "choice",
+     "choice": "labor-law",
+     "confidence": 0.4,
+     "probabilities": {
+      "writing-blog": 0.0,
+      "mindset": 0.0,
+      "none": 0.39,
+      "work-life": 0.0,
+      "ai-tools": 0.0,
+      "planning": 0.0,
+      "other": 0.0,
+      "labor-world": 0.14,
+      "labor-law": 0.47000000000000003,
+      "habit-record": 0.0,
+      "money-life": 0.0
+     }
+    }
+   },
+   "usage": {
+    "input_tokens": 2463,
+    "output_tokens": 201
+   }
+  },
+  "year-end-tax-comparison": {
+   "model": "jev-1.13.0",
+   "answers": {
+    "category": {
+     "type": "choice",
+     "choice": "money-life",
+     "confidence": 0.98,
+     "probabilities": {
+      "labor-law": 0.02,
+      "ai-tools": 0.0,
+      "writing-blog": 0.0,
+      "mindset": 0.0,
+      "habit-record": 0.0,
+      "planning": 0.0,
+      "other": 0.0,
+      "money-life": 0.98,
+      "work-life": 0.0,
+      "labor-world": 0.0
+     }
+    },
+    "category_secondary": {
+     "type": "choice",
+     "choice": "none",
+     "confidence": 0.47,
+     "probabilities": {
+      "labor-law": 0.03,
+      "ai-tools": 0.0,
+      "mindset": 0.0,
+      "writing-blog": 0.0,
+      "none": 0.52,
+      "habit-record": 0.0,
+      "planning": 0.0,
+      "money-life": 0.44,
+      "other": 0.01,
+      "work-life": 0.0,
+      "labor-world": 0.0
+     }
+    }
+   },
+   "usage": {
+    "input_tokens": 2518,
+    "output_tokens": 200
+   }
+  },
+  "one-year-money-comparison": {
+   "model": "jev-1.13.0",
+   "answers": {
+    "category_secondary": {
+     "type": "choice",
+     "choice": "none",
+     "confidence": 0.65,
+     "probabilities": {
+      "mindset": 0.0,
+      "other": 0.0,
+      "labor-world": 0.0,
+      "ai-tools": 0.0,
+      "writing-blog": 0.0,
+      "habit-record": 0.0,
+      "money-life": 0.31,
+      "none": 0.6900000000000001,
+      "work-life": 0.0,
+      "planning": 0.0,
+      "labor-law": 0.0
+     }
+    },
+    "category": {
+     "type": "choice",
+     "choice": "money-life",
+     "confidence": 1.0,
+     "probabilities": {
+      "mindset": 0.0,
+      "other": 0.0,
+      "labor-world": 0.0,
+      "habit-record": 0.0,
+      "writing-blog": 0.0,
+      "planning": 0.0,
+      "money-life": 1.0,
+      "ai-tools": 0.0,
+      "work-life": 0.0,
+      "labor-law": 0.0
+     }
+    }
+   },
+   "usage": {
+    "input_tokens": 2469,
+    "output_tokens": 200
+   }
+  },
+  "hybrid-work-cost-calculator": {
+   "model": "jev-1.13.0",
+   "answers": {
+    "category": {
+     "type": "choice",
+     "choice": "money-life",
+     "confidence": 0.91,
+     "probabilities": {
+      "writing-blog": 0.0,
+      "habit-record": 0.0,
+      "mindset": 0.0,
+      "labor-world": 0.0,
+      "ai-tools": 0.0,
+      "labor-law": 0.01,
+      "planning": 0.0,
+      "money-life": 0.92,
+      "other": 0.0,
+      "work-life": 0.07
+     }
+    },
+    "category_secondary": {
+     "type": "choice",
+     "choice": "money-life",
+     "confidence": 0.47,
+     "probabilities": {
+      "work-life": 0.23,
+      "none": 0.18,
+      "habit-record": 0.0,
+      "planning": 0.01,
+      "labor-world": 0.02,
+      "ai-tools": 0.0,
+      "mindset": 0.0,
+      "labor-law": 0.03,
+      "money-life": 0.52,
+      "other": 0.01,
+      "writing-blog": 0.0
+     }
+    }
+   },
+   "usage": {
+    "input_tokens": 2470,
+    "output_tokens": 201
+   }
+  }
+ },
+ "errors": {}
+}

@@ -1,12 +1,14 @@
 import Link from "next/link";
-import { formatDateKo, type PostMeta } from "@/lib/posts";
+import { categoryLabel } from "@/lib/categories";
+import { formatDate, type PostMeta } from "@/lib/posts";
+import { DEFAULT_LANG, categoryPath, postPath, type Lang } from "@/lib/i18n";
 
-export default function PostCard({ post }: { post: PostMeta }) {
+export default function PostCard({ post, lang = DEFAULT_LANG }: { post: PostMeta; lang?: Lang }) {
   return (
     <article className="group relative flex gap-4 rounded-xl border border-ink-200 bg-white p-5 shadow-sm transition hover:border-accent/40 hover:shadow-md sm:gap-5 sm:p-6">
       {post.image ? (
         <Link
-          href={`/p/${post.slug}`}
+          href={postPath(post.slug, lang)}
           className="relative z-10 hidden shrink-0 overflow-hidden rounded-lg border border-ink-100 sm:block"
           tabIndex={-1}
           aria-hidden
@@ -23,14 +25,24 @@ export default function PostCard({ post }: { post: PostMeta }) {
         </Link>
       ) : null}
       <div className="min-w-0 flex-1">
-      <time
-        dateTime={post.date}
-        className="text-xs font-medium uppercase tracking-wide text-ink-700/60"
-      >
-        {formatDateKo(post.date)}
-      </time>
+      <div className="flex flex-wrap items-center gap-2">
+        {post.categories.length > 0 ? (
+          <Link
+            href={categoryPath(post.categories[0], lang)}
+            className="relative z-10 rounded-full bg-ink-900 px-2.5 py-0.5 text-xs font-medium text-white hover:bg-accent"
+          >
+            {categoryLabel(post.categories[0], lang)}
+          </Link>
+        ) : null}
+        <time
+          dateTime={post.date}
+          className="text-xs font-medium uppercase tracking-wide text-ink-700/60"
+        >
+          {formatDate(post.date, lang)}
+        </time>
+      </div>
       <h2 className="mt-2 font-serif text-xl font-semibold text-ink-900 group-hover:text-accent sm:text-2xl">
-        <Link href={`/p/${post.slug}`} className="focus:outline-none">
+        <Link href={postPath(post.slug, lang)} className="focus:outline-none">
           <span className="absolute inset-0 rounded-xl" aria-hidden />
           {post.title}
         </Link>

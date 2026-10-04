@@ -2,8 +2,10 @@ import Link from "next/link";
 import { getSession } from "@/lib/auth";
 import { siteConfig } from "@/lib/site";
 import LogoutButton from "@/components/LogoutButton";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
+import { DEFAULT_LANG, aboutPath, homePath, t, type Lang } from "@/lib/i18n";
 
-export default async function Header() {
+export default async function Header({ lang = DEFAULT_LANG }: { lang?: Lang }) {
   const session = await getSession();
   const isAdmin = session?.role === "admin";
   const isMember = !!session && session.role === "member";
@@ -11,7 +13,7 @@ export default async function Header() {
   return (
     <header className="border-b border-ink-200 bg-white/90 backdrop-blur sticky top-0 z-40">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-4 sm:px-6">
-        <Link href="/" className="group block min-w-0">
+        <Link href={homePath(lang)} className="group block min-w-0">
           <span className="block font-serif text-xl font-semibold tracking-tight text-ink-900 group-hover:text-accent sm:text-2xl">
             {siteConfig.name}
           </span>
@@ -20,17 +22,19 @@ export default async function Header() {
           </span>
         </Link>
         <nav className="flex shrink-0 flex-wrap items-center justify-end gap-1 text-sm font-medium text-ink-800 sm:gap-2">
+          {/* 언어 전환 — 오른쪽 상단 첫 버튼 */}
+          <LanguageSwitcher current={lang} />
           <Link
-            href="/"
+            href={homePath(lang)}
             className="rounded-md px-2.5 py-1.5 hover:bg-ink-100 hover:text-accent"
           >
-            글홈
+            {t(lang, "navMain")}
           </Link>
           <Link
-            href="/about"
+            href={aboutPath(lang)}
             className="rounded-md px-2.5 py-1.5 hover:bg-ink-100 hover:text-accent"
           >
-            소개
+            {t(lang, "navAbout")}
           </Link>
           {!session ? (
             <>
@@ -38,13 +42,13 @@ export default async function Header() {
                 href="/join"
                 className="rounded-md px-2.5 py-1.5 hover:bg-ink-100 hover:text-accent"
               >
-                가입
+                {t(lang, "navJoin")}
               </Link>
               <Link
                 href="/login"
                 className="rounded-md px-2.5 py-1.5 hover:bg-ink-100 hover:text-accent"
               >
-                로그인
+                {t(lang, "navLogin")}
               </Link>
             </>
           ) : null}
@@ -58,7 +62,7 @@ export default async function Header() {
               href="/admin"
               className="rounded-md bg-accent/10 px-2.5 py-1.5 text-accent hover:bg-accent/20"
             >
-              관리
+              {t(lang, "navAdmin")}
             </Link>
           ) : null}
           {session ? <LogoutButton /> : null}
@@ -66,4 +70,4 @@ export default async function Header() {
       </div>
     </header>
   );
-}
+}

@@ -28,3 +28,20 @@ drop trigger if exists hj_store_updated_at on public.hj_store;
 create trigger hj_store_updated_at
   before update on public.hj_store
   for each row execute function public.hj_store_touch_updated_at();
+
+-- ── 뉴스레터 구독자 ────────────────────────────────────────
+-- 애드센스 외 수익(재방문)의 토대. 하루기록은 search-console.traffic 에
+-- hjb_subscribe 를 추가해 신규/재방문을 나누어 봅니다.
+create table if not exists public.hj_subscribers (
+  email text primary key,
+  created_at timestamptz not null default now(),
+  source text not null default 'unknown'
+);
+
+-- 중복 구독은 ignore-duplicates(prefer 204)로 조용히 넘어간다.
+alter table public.hj_subscribers enable row level security;
+
+drop trigger if exists hj_subscribers_updated_at on public.hj_subscribers;
+create trigger hj_subscribers_updated_at
+  before update on public.hj_subscribers
+  for each row execute function public.hj_store_touch_updated_at();

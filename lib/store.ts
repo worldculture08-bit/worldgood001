@@ -54,22 +54,26 @@ async function supabaseRequest<T>(
   path: string,
   init: RequestInit = {},
 ): Promise<{ ok: boolean; status: number; data: T | null }> {
-  const res = await fetch(`${SUPABASE_URL}${path}`, {
-    ...init,
-    headers: {
-      apikey: SUPABASE_SERVICE_ROLE_KEY,
-      Authorization: `Bearer ${SUPABASE_SERVICE_ROLE_KEY}`,
-      "Content-Type": "application/json",
-      ...(init.headers ?? {}),
-    },
-    cache: "no-store",
-  });
-  if (!res.ok) {
-    return { ok: false, status: res.status, data: null };
+  try {
+    const res = await fetch(`${SUPABASE_URL}${path}`, {
+      ...init,
+      headers: {
+        apikey: SUPABASE_SERVICE_ROLE_KEY,
+        Authorization: `Bearer ${SUPABASE_SERVICE_ROLE_KEY}`,
+        "Content-Type": "application/json",
+        ...(init.headers ?? {}),
+      },
+      cache: "no-store",
+    });
+    if (!res.ok) {
+      return { ok: false, status: res.status, data: null };
+    }
+    const text = await res.text();
+    const data = text ? (JSON.parse(text) as T) : null;
+    return { ok: true, status: res.status, data };
+  } catch {
+    return { ok: false, status: 503, data: null };
   }
-  const text = await res.text();
-  const data = text ? (JSON.parse(text) as T) : null;
-  return { ok: true, status: res.status, data };
 }
 
 type SupabaseReadResult = { ok: boolean; store: StoreData | null };
@@ -170,11 +174,11 @@ export async function readStore(): Promise<StoreData> {
     if (remote.ok) {
       if (remote.store && !isEmptyStore(remote.store)) return remote.store;
       const seeded = seedStore();
-      // ponytail: 스키마가 만든 빈 행이면 시드(관리자·초기 추천코드)를 upsert해 초기화한다.
       if (await supabaseWriteStore(seeded)) return seeded;
-      return remote.store ?? seeded;
+      if (process.env.NODE_ENV === "production") return remote.store ?? emptyStore();
+      return seeded;
     }
-    // 읽기 실패 시 원격 데이터를 덮어쓰지 않도록 쓰기 없이 시드만 반환한다.
+    if (process.env.NODE_ENV === "production") return emptyStore();
     return seedStore();
   }
   return fileReadStore();

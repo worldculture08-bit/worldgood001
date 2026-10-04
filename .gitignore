@@ -41,7 +41,13 @@ next-env.d.ts
 
 # local membership store (seeded at runtime)
 /data/store.json
+
+# local newsletter subscriber file (contains real email addresses)
+/data/subscribers.json
 .env*
 
 # graft's local graph cache — regenerable, not committed (run `graft build`).
 /graft/
+
+# throwaway diagnostics
+scripts/tmp-*.js

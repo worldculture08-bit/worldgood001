@@ -1,25 +1,44 @@
 import type { MetadataRoute } from "next";
-import { getAllPosts } from "@/lib/posts";
+import { getAllCategories, getAllPosts } from "@/lib/posts";
 import { siteConfig } from "@/lib/site";
+import { LANGS, langPrefix } from "@/lib/i18n";
+
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const posts = getAllPosts();
   const base = siteConfig.url;
 
-  const postEntries: MetadataRoute.Sitemap = posts.map((post) => ({
-    url: `${base}/p/${post.slug}`,
-    lastModified: post.date ? new Date(post.date) : new Date(),
-    changeFrequency: "monthly",
-    priority: 0.8,
+  // 같은 글의 5개 언어 URL (ko 는 접두사 없음)
+  const variants = (path: string): string[] =>
+    LANGS.map((lang) => `${base}${langPrefix(lang)}${path}`);
+
+  const postEntries: MetadataRoute.Sitemap = posts.flatMap((post) =>
+    variants(`/p/${post.slug}`).map((url) => ({
+      url,
+      lastModified: post.date ? new Date(post.date) : new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
+    })),
+  );
+
+  const categoryEntries: MetadataRoute.Sitemap = getAllCategories().flatMap((c) =>
+    variants(`/c/${c.slug}`).map((url) => ({
+      url,
+      lastModified: new Date(),
+      changeFrequency: "weekly" as const,
+      priority: 0.6,
+    })),
+  );
+
+  const homeEntries: MetadataRoute.Sitemap = variants("").map((url) => ({
+    url,
+    lastModified: new Date(),
+    changeFrequency: "weekly" as const,
+    priority: 1,
   }));
 
   return [
-    {
-      url: base,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 1,
-    },
+    ...homeEntries,
     {
       url: `${base}/about`,
       lastModified: new Date(),
@@ -44,6 +63,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.4,
     },
+    ...categoryEntries,
     ...postEntries,
   ];
 }

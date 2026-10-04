@@ -6,15 +6,74 @@
 
 ## 포함 기능
 
-- 홈: `content/posts/*.md` 글 목록
+- 홈: `content/posts/*.md` 글 목록 — 상단에 "돈이 걸린 문제부터" 수익 주제 진입로
 - 글 상세: `/p/[slug]` (구 `/posts/[slug]` 는 리다이렉트)
-- 소개: `/about`
+- 소개: `/about`, **편집정책**: `/editorial-policy` (AdSense 승인 심사 핵심 페이지)
 - 가입: `/join` (추천 코드 필수)
 - 로그인: `/login`
 - 관리: `/admin` (관리자만 추천 코드 생성·목록·비활성)
-- AdSense용 광고 자리 (배너·사이드바·본문 중간) + 클라이언트·단위 ID 환경변수
-- SEO: 메타데이터, Open Graph, `sitemap.ts`, `robots.ts`
-- 본문 글 30편 (영문 kebab-case 슬러그)
+- 광고 자리 5곳 (배너·사이드바·본문 중간·본문 하단·푸터) + 클라이언트·단위 ID 환경변수
+- 뉴스레터 구독: 홈·카테고리·글 하단 폼 → `POST /api/subscribe` → Supabase `hj_subscribers`
+- 제휴 링크: 글 frontmatter `affiliate:` 로 지정하면 수익 발생 사실을 고지한 블록이 자동 표시
+- SEO: 메타데이터, Open Graph, hreflang(5개 언어), JSON-LD(글·사이트·분류), `sitemap.ts`, `robots.ts`
+- 본문 글 77편 (영문 kebab-case 슬러그)
+
+## 수익 구조 (왜 이 순서인가)
+
+애드센스만으로는 천장이 낮습니다. 그래서 세 갈래를 동시에 밟습니다.
+
+| 축 | 하는 일 | 기대 효과 |
+|----|---------|-----------|
+| 검색 유입 | 전세·연금·세금·주거·투자 같은 **검색 의도가 뚜렷한 주제**를 전면 배치 | 노출 자체를 늘림 |
+| 평당 수익 | 본문 **중간(35~60%)에 광고 삽입** + 단위 5곳 | 같은 조회수에서 수익 배수 상승 |
+| 재방문 | 뉴스레터 수집 + 제휴 링크 | 애드센스 외 수입원 |
+
+카테고리 순서는 글 수가 아니라 **수익 잠재력**(`lib/categories.ts` 의
+`MONETIZATION`)으로 정렬됩니다. 새 카테고리를 만들 때 값을 지정하지 않으면 0으로
+봅니다.
+
+## 글 작성 규칙
+
+1. **기준일을 본문 첫 줄에 적습니다.** ("기준일 2026년 10월 4일.")
+2. **계산 과정을 전부 폅니다.** 대입값과 결과값을 같이 써야 다른 사람이 재현할 수 있습니다.
+3. **출처를 못 적은 숫자는 쓰지 않습니다.** 확인 못 한 것은 "확인하지 못함"으로 적습니다.
+4. **카테고리를 수익 카테고리부터 고려합니다.**
+5. **게시 전에 `python scripts/check_text.py` 를 돌립니다.** 본문에 다른 문자 체계의 글자나
+   의미 없는 라틴 토큰이 섞여 들어가는 것을 잡습니다.
+
+### 체크 스크립트
+
+```bash
+python scripts/check_text.py       # 본문 텍스트 이상 문자 검사 (게시 전 필수)
+python scripts/retag_categories.py # 카테고리 재배치 (dry: --dry)
+```
+
+## 글 추가하는 방법
+
+1. `content/posts/`에 `short-english-slug.md` 파일을 만듭니다.
+2. frontmatter 예시:
+
+```markdown
+---
+title: "제목"
+date: "2026-10-04"
+updated: "2026-10-10"        # 생략 가능. 법령·요율이 바뀐 글에 적습니다
+description: "한 줄 요약"
+tags: ["태그1", "태그2"]
+categories: ["jeonse"]        # 수익 카테고리 우선
+affiliate:                    # 생략 가능. 넣으면 수익 고지 블록이 자동 표시됩니다
+  - name: "도구 이름"
+    url: "https://example.com"
+    note: "무엇이 좋은지 한 줄"
+---
+
+본문…
+```
+
+3. 저장 후 `/p/short-english-slug` 로 열립니다.
+
+> `affiliate:` 에 넣는 링크는 실제로 수수료를 받는 제휴 링크여야 합니다.
+> 고지 없이 넣으면 애드센스 정책 위반입니다. 직접 써보지 않은 제품은 넣지 않습니다.
 
 ## 짧은 주소 / 도메인
 
@@ -86,12 +145,37 @@ tags: ["태그1", "태그2"]
 
 ## AdSense 설정
 
-1. [Google AdSense](https://www.google.com/adsense/)에서 사이트를 등록·승인받습니다.
-2. `.env.local`에 `NEXT_PUBLIC_ADSENSE_CLIENT`를 넣습니다.
-3. AdSense에서 발급한 광고 단위 ID를 `NEXT_PUBLIC_ADSENSE_SLOT_BANNER`, `NEXT_PUBLIC_ADSENSE_SLOT_SIDEBAR`, `NEXT_PUBLIC_ADSENSE_SLOT_IN_ARTICLE`에 넣습니다.
-4. `public/ads.txt`에 AdSense가 안내하는 한 줄을 넣어 배포합니다. (**가짜 publisher ID 금지**)
+1. [Google AdSense](https://www.google.com/adsense/)에서 사이트를 등록·심사 요청합니다.
+2. 승인되면 `.env.local`(또는 Vercel 환경변수)에 아래를 채웁니다.
 
-환경 변수가 비어 있으면 안내 플레이스홀더가 표시됩니다.
+```
+NEXT_PUBLIC_ADSENSE_CLIENT=ca-pub-xxxxxxxxxxxxxxxx
+NEXT_PUBLIC_ADSENSE_SLOT_BANNER=...
+NEXT_PUBLIC_ADSENSE_SLOT_SIDEBAR=...
+NEXT_PUBLIC_ADSENSE_SLOT_IN_ARTICLE=...
+NEXT_PUBLIC_ADSENSE_SLOT_IN_ARTICLE_2=...
+NEXT_PUBLIC_ADSENSE_SLOT_FOOTER=...
+```
+
+3. `public/ads.txt`에 AdSense가 안내하는 한 줄을 넣어 배포합니다. (**가짜 publisher ID 금지**)
+
+주의할 점 두 가지입니다.
+
+- `NEXT_PUBLIC_` 값은 **빌드 시점에 고정**됩니다. 단위를 새로 추가하면 반드시
+  다시 빌드·배포해야 화면에 나옵니다.
+- 단위 ID가 비어 있는 자리는 자동으로 사라집니다. 승인 전에 "광고 자리입니다"라는
+  빈 상자가 남아 있으면 CLS가 생기고 심사에 불리하므로, 채우기 전에는 그 자리를
+  비워 두는 편이 낫습니다.
+
+## 뉴스레터 구독자 저장
+
+`supabase/schema.sql` 을 SQL Editor 에 실행하면 `hj_subscribers` 테이블이
+생깁니다. 환경변수가 없으면 `data/subscribers.json` 에 저장되며, 이 파일 저장은
+로컬 개발용입니다(Vercel 서버리스에서는 유지되지 않습니다).
+
+수집 위치는 홈 사이드바·카테고리 하단·글 하단 세 곳입니다.
+`GET /api/subscribe` 로 목록을 셀 수는 없고, 집계가 필요하면 Supabase에서 직접
+보세요.
 
 ## Vercel 배포
 
